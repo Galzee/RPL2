@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XI RPL 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="rpl-removebg-preview.png" type="image/x-icon">
+
+</head>
+<body>
+    <div class="navbar">
+        <img class="logo" src="rpl-removebg-preview.png" alt="Logo XI RPL 2">
+        <div class="title">
+            <h2>XI RPL 2</h2>
+        </div>
+        <div class="nav-buttons-container">
+            <button type="button" class="nav-button" onclick="scrollToSection('home')">Home</button>
+            <button type="button" class="nav-button" onclick="scrollToSection('jadwal')">Jadwal</button>
+            <a href="siswa.html" class="nav-button">Siswa</a>
+        </div>
+    </div>
+
+    <div id="home" class="content">
+        <h1>Selamat datang di Kelas XI RPL 2</h1>
+        <p>Angkatan 2023.</p>
+        <div class="gallery">
+            <img class="g1" style="border-radius: 10px;;" src="smkn9.jpeg" alt="">
+            <img class="g2" style="border-radius: 10px; " src="upacara.jpeg" alt="">
+            <img class="g3" style="border-radius: 10px;" src="smknlpgn.jpeg" alt="">
+    
+        </div>
+    </div>
+
+
+
+    <div id="jadwal" class="section">
+        <h2>Jadwal Kelas</h2>
+        <label for="blockSelect">Pilih Blok:</label>
+        <select id="blockSelect" onchange="updateSchedule()">
+            <option value=""> Pilih Blok </option>
+            <option value="blok1">Blok 1</option>
+            <option value="blok2">Blok 2</option>
+        </select>
+        <label for="daySelect">Pilih Hari:</label>
+        <select id="daySelect" onchange="updateSchedule()">
+            <option value=""> Pilih Hari </option>
+            <option value="senin">Senin</option>
+            <option value="selasa">Selasa</option>
+            <option value="rabu">Rabu</option>
+            <option value="kamis">Kamis</option>
+            <option value="jumat">Jumat</option>
+            <option value="sabtu">Sabtu</option>
+        </select>
+        
+        <div id="scheduleDetails" class="schedule">
+            <!-- Schedule details will be displayed here -->
+        </div>
+    </div>
+
+    <footer>
+        <!--PW:gawluh-->
+        <p>&copy; 2024 Kelas XI RPL 2. Semua hak cipta dilindungi.</p>
+        <p><a href="https://www.instagram.com/repaltwo_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">Kontak Kami</a></p>
+    </footer>
+
+    <script>
+        const scheduleData = {
+            blok1: {
+                senin: `
+                    <h3>Senin - Blok 1</h3>
+                    <ul>
+                        <li>PO/Pemrograman berbasis teks, Grafis, & Multimedia | 4 Les (L9) - Annisah Husni Daulay, M.Kom</li>
+                        <li>PW/Pemrograman Web | 4 Les (L9) - Senty Liastanova Sembiring, S.Kom</li>
+                    </ul>
+                `,
+                selasa: `
+                    <h3>Selasa - Blok 1</h3>
+                    <ul>
+                        <li>PB/Pemrograman perangkat bergerak | 5 Les (L9) - Gira Berlian Gabriela HTG, S.Pd</li>
+                        <li>PW/Pemrograman Web | 4 Les (L9) - Senty Liastanova Sembiring, S.Kom</li>
+                    </ul>
+                `,
+                rabu: `
+                    <h3>Rabu - Blok 1</h3>
+                    <ul>
+                        <li>PK/Projek kreatif dan kewirausahaan | 4 Les (L9) - Senty Liastanova Sembiring, S.Kom</li>
+                        <li>PB/Pemrograman perangkat bergerak | 5 Les (L9) - Gira Berlian Gabriela HTG, S.Pd</li>
+                    </ul>
+                `,
+                kamis: `
+                    <h3>Kamis - Blok 1</h3>
+                    <ul>
+                        <li>BA/Basis Data | 8 Les (L9) - Novelman Manurung, ST</li>
+                    </ul>
+                `,
+                jumat: `
+                    <h3>Jumat - Blok 1</h3>
+                    <ul>
+                        <li>PO/Pemrograman berbasis teks, Grafis, & Multimedia | 6 Les (L9) - Annisah Husni Daulay, M.Kom</li>
+                    </ul>
+                `,
+                sabtu: `
+                    <h3>Sabtu - Blok 1</h3>
+                    <ul>
+                        <li>PK/Projek kreatif dan kewirausahaan | 4 Les (L9)</li>
+                    </ul>
+                `
+            },
+            blok2: {
+                senin: `
+                    <h3>Senin - Blok 2</h3>
+                    <ul>
+                        <li>MP/Mata Pelajaran Pilihan -> Front end Back end | 8 Les (L10) - Annisah Husni Daulay, M.Kom</li>
+                    </ul>
+                `,
+                selasa: `
+                    <h3>Selasa - Blok 2</h3>
+                    <ul>
+                        <li>BE/Bahasa Inggris | 5 Les (R23) - Sukriyah, S.Pd</li>
+                        <li>PP/PPKN | 2 Les (R23) - Sortika Tamba, S.Pd</li>
+                        <li>SJ/Sejarah | 2 Les (R23) - Deli Pakpahan, S.Pd</li>
+                    </ul>
+                `,
+                rabu: `
+                    <h3>Rabu - Blok 2</h3>
+                    <ul>
+                        <li>PJ/PJOK | 4 Les (R23) - Martogi Lamtarida Sinambela, S.Pd</li>
+                        <li>SJ/Sejarah | 2 Les (R23) - Deli Pakpahan, S.Pd</li>
+                        <li>BI/Bahasa Indonesia | 3 Les (R23) - Dra. Riana Fitriah.S</li>
+                    </ul>
+                `,
+                kamis: `
+                    <h3>Kamis - Blok 2</h3>
+                    <ul>
+                        <li>PP/PPKN | 2 Les (R23) - Sortika Tamba, S.Pd</li>
+                        <li>BE/Bahasa Inggris | 3 Les (R23) - Sukriyah, S.Pd</li>
+                        <li>MM/Matematika | 3 Les (R23) - Rismayati Panjaitan, S.Pd</li>
+                    </ul>
+                `,
+                jumat: `
+                    <h3>Jumat - Blok 2</h3>
+                    <ul>
+                        <li>Agama | 6 Les (R23) - Indrawati Tumanggor, S.Ag. MA</li>
+                    </ul>
+                `,
+                sabtu: `
+                    <h3>Sabtu - Blok 2</h3>
+                    <ul>
+                        <li>BI/Bahasa Indonesia | 3 Les (R23) - Dra. Riana Fitriah.S</li>
+                        <li>MM/Matematika | 3 Les (R23) - Rismayati Panjaitan, S.Pd</li>
+                    </ul>
+                `
+            }
+        };
+
+        function updateSchedule() {
+            const blockSelect = document.getElementById('blockSelect').value;
+            const daySelect = document.getElementById('daySelect').value;
+            const scheduleDetails = document.getElementById('scheduleDetails');
+
+            if (blockSelect && daySelect) {
+                scheduleDetails.innerHTML = scheduleData[blockSelect][daySelect] || '<p>Tidak ada jadwal untuk pilihan ini.</p>';
+            } else {
+                scheduleDetails.innerHTML = '<p>Silakan pilih blok dan hari untuk melihat jadwal.</p>';
+            }
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop - document.querySelector('.navbar').offsetHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function addPost(event) {
+            event.preventDefault();
+            const postContent = document.getElementById('postContent').value;
+            if (postContent.trim() === '') return;
+
+            const postsContainer = document.getElementById('posts');
+            const postElement = document.createElement('div');
+            postElement.classList.add('post');
+            postElement.innerHTML = `
+                <p>${postContent}</p>
+                <button onclick="toggleReplyForm(this)">Balas</button>
+                <div class="reply-form" style="display: none;">
+                    <textarea rows="2" placeholder="Tulis balasan..."></textarea>
+                    <button onclick="addReply(this)">Kirim Balasan</button>
+                </div>
+                <div class="replies">
+                    <!-- Balasan akan ditampilkan di sini -->
+                </div>
+                <button onclick="deletePost(this)">Hapus</button>
+            `;
+            postsContainer.appendChild(postElement);
+            document.getElementById('postContent').value = '';
+        }
+
+        function toggleReplyForm(button) {
+            const replyForm = button.nextElementSibling;
+            replyForm.style.display = replyForm.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addReply(button) {
+            const replyContent = button.previousElementSibling.value;
+            if (replyContent.trim() === '') return;
+
+            const repliesContainer = button.parentElement.nextElementSibling;
+            const replyElement = document.createElement('div');
+            replyElement.classList.add('reply');
+            replyElement.innerHTML = `
+                <p>${replyContent}</p>
+                <button onclick="deleteReply(this)">Hapus</button>
+            `;
+            repliesContainer.appendChild(replyElement);
+            button.previousElementSibling.value = '';
+        }
+
+        function deletePost(button) {
+            button.parentElement.remove();
+        }
+
+        function deleteReply(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
